@@ -5,6 +5,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { Providers } from '@/Providers';
 import Navbar from '@/components/Navigation/Navbar/Navbar';
 import Sidebar from '@components/Navigation/Sidebar';
+import UploadPage from '@components/UploadPage/UploadPage';
+import SettingsPage from '@components/SettingsPage/SettingsPage';
 
 export const metadata = {
   title: 'Youtube',
@@ -115,6 +117,8 @@ export default function RootLayout({
           <div className="flex">
             <Sidebar />
             {children}
+            <UploadPage />
+            <SettingsPage />
           </div>
         </Providers>
         <Analytics />

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { useQuery } from '@tanstack/react-query';
+import { SERVER_URL, API_KEY } from '@/utils/constants';
 
 // ? This is a custom Hook created to fetch data using TanStack React-Query
 //! Passing 'QueryName' and 'API_URL' passing is mandatory!
@@ -16,7 +17,7 @@ const useFetchVideosData = (
   // Returning below useQuery Func
   useQuery({
     queryKey: [QueryName],
-    queryFn: () => fetch(API_URL).then((res) => res.json()), //* Abstracted Business logic(API)
+    queryFn: () => fetch(`${SERVER_URL}${API_URL}?apiKey=${API_KEY}`).then((res) => res.json()), //* Abstracted Business logic(API)
     refetchOnWindowFocus: false, // On every window focus, this will stop calling api every time window gets focused
     refetchInterval: false, // This will not call api every time interval of time(useful for stocks app for continuous updates) //* Polling
     enabled: InitialLoad,
