@@ -10,19 +10,19 @@ import Spinner from '@/loading';
 import VideoCard from '@components/Homepage/VideoCard';
 import { useAppSelector } from '@store/hooks';
 import { RootState } from '@store/store';
-import { YOUTUBE_VIDEOS_API, YOUTUBE_FILTER_API } from '@/utils/constants';
+import { SERVER_URL, API_KEY } from '@/utils/constants';
 
 const VideoContainer = () => {
   const searchTerm: string = useAppSelector(
     (store: RootState) => store.filterApp.data,
   );
 
-  const FilterSearchAPI: string = `${YOUTUBE_FILTER_API}&q=${searchTerm}`;
+  const FilterSearchAPI: string = `${SERVER_URL}/videos?search=${searchTerm}&apiKey=${API_KEY}`;
 
   // ? useFetchVideosData is the custom Hook(Purpose is to fetch Data)
   const { data, isLoading, isError, error, refetch } = useFetchVideosData(
     'HomePage Videos',
-    searchTerm === '' ? YOUTUBE_VIDEOS_API : FilterSearchAPI,
+    searchTerm === '' ? `${SERVER_URL}/videos?apiKey=${API_KEY}` : FilterSearchAPI,
     true,
   );
 
@@ -49,11 +49,7 @@ const VideoContainer = () => {
     <div className="ml-10 flex flex-wrap gap-4">
       {data?.items?.map((item: any) => (
         <Link
-          href={
-            searchTerm === ''
-              ? `/watch?v=${item.id}`
-              : `/watch?v=${item.id.videoId}`
-          }
+          href={`/watch?v=${item.id}`}
           key={item.id}
         >
           <VideoCard info={item} />
